@@ -182,7 +182,10 @@ export default {
       }
 
       // Where Filter
-      if (this.where[2]) {
+      const isWhere = this.select.includes('*')
+        ? this.where[2]
+        : this.select.includes(this.where[0]) && this.where[2]
+      if (isWhere) {
         const testNumber = (x, y) => {
           return !isNaN(parseInt(x, 10)) && !isNaN(parseInt(y, 10))
         }
