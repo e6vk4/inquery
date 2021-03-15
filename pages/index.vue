@@ -218,7 +218,7 @@ export default {
               if (z === '!=') state = parseInt(x, 10) !== parseInt(y, 10)
             }
             if (testString(x, y)) {
-              if (z === '=') return (state = x === y)
+              if (z === '=') state = x === y
               if (z === '>') state = x > y
               if (z === '<') state = x < y
               if (z === '>=') state = x >= y
