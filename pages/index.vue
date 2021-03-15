@@ -2,7 +2,15 @@
   <div class="text-gray-900" style="min-width: 100rem">
     <div id="scrollTo"></div>
     <!-- Header -->
-    <h1 class="mt-10 text-2xl font-bold text-center">InQuery</h1>
+    <h1 class="mt-10 text-2xl font-bold text-center">
+      InQuery <span class="text-sm font-normal">by</span>
+      <a
+        href="https://github.com/loperxo"
+        class="text-sm font-normal text-blue-500 hover:underline"
+      >
+        @loperxo</a
+      >
+    </h1>
     <!-- Content -->
     <div class="w-full px-24 mt-10">
       <!-- Data -->
