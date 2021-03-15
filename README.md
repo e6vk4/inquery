@@ -23,12 +23,15 @@ View the screenshots below from the generated report for the hosted app availabl
 
 ## TO-DO
 
-- Toggle view ro see the generated SQL equivalent code for the current query
+- Toggle view to see the generated SQL equivalent code for the current query
 - Mobile responsiveness
 - Fixed Table header on page scroll
 - Export queried data in different formats ( CSV, JSON) etc
 - Add external data source via URL or upload from device
 - Add Unit tests
+- Support more SQL Query statements
+- Support chanining conditions
+- Support multi-databse query
 
 ## Build Setup
 
