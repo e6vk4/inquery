@@ -131,15 +131,16 @@ export default {
       ],
       select: ['*'], // ['customerId', 'employeeId']
       from: ['customers'], // ['customers']
-      where: ['', '=', ''], // ['customerId', '=', 'ebuka']
+      where: [null, '=', null], // ['customerId', '=', 'ebuka']
       currWhereFilter: '', // 'customerId'
-      order: ['', ''], // ['customerId', 'desc']
+      order: [null, null], // ['customerId', 'desc']
       limit: 0, // 9
       count: 0,
     }
   },
   computed: {
     database() {
+      // From Filter
       const items = this[this.from[0]].body
       const headers = Object.keys(items[0])
       return {
@@ -154,6 +155,7 @@ export default {
       const items = this.database.items
       let filtered = []
 
+      // Select Filter
       if (this.select.includes('*')) filtered = items
       else
         items.forEach((i) => {
@@ -169,7 +171,8 @@ export default {
           filtered.push(ccc)
         })
 
-      if (this.order.length === 2) {
+      // Order Filter
+      if (this.order[0] && this.order[1]) {
         filtered.sort((a, b) => {
           if (a[this.order[0]] < b[this.order[0]]) return -1
           if (a[this.order[0]] > b[this.order[0]]) return 1
@@ -178,21 +181,45 @@ export default {
         if (this.order[1] === 'descending') filtered.reverse()
       }
 
+      // Where Filter
       if (this.where[2]) {
+        const testNumber = (x, y) => {
+          return !isNaN(parseInt(x, 10)) && !isNaN(parseInt(y, 10))
+        }
+        const testString = (x, y) => {
+          return !parseInt(x, 10) && !parseInt(y, 10)
+        }
+
         filtered = filtered.filter((i) => {
+          let state = false
+
           if (Object.getOwnPropertyDescriptor(i, this.where[0])) {
-            if (this.where[1] === '=') return i[this.where[0]] === this.where[2]
-            if (this.where[1] === '>') return i[this.where[0]] > this.where[2]
-            if (this.where[1] === '<') return i[this.where[0]] < this.where[2]
-            if (this.where[1] === '>=') return i[this.where[0]] >= this.where[2]
-            if (this.where[1] === '<=') return i[this.where[0]] <= this.where[2]
-            if (this.where[1] === '!=')
-              return i[this.where[0]] !== this.where[2]
+            const x = i[this.where[0]]
+            const y = this.where[2]
+            const z = this.where[1]
+
+            if (testNumber(x, y)) {
+              if (z === '=') state = parseInt(x, 10) === parseInt(y, 10)
+              if (z === '>') state = parseInt(x, 10) > parseInt(y, 10)
+              if (z === '<') state = parseInt(x, 10) < parseInt(y, 10)
+              if (z === '>=') state = parseInt(x, 10) >= parseInt(y, 10)
+              if (z === '<=') state = parseInt(x, 10) <= parseInt(y, 10)
+              if (z === '!=') state = parseInt(x, 10) !== parseInt(y, 10)
+            }
+            if (testString(x, y)) {
+              if (z === '=') return (state = x === y)
+              if (z === '>') state = x > y
+              if (z === '<') state = x < y
+              if (z === '>=') state = x >= y
+              if (z === '<=') state = x <= y
+              if (z === '!=') state = x !== y
+            }
           }
-          return false
+          return state
         })
       }
 
+      // Limit Filter
       const limit = this.limit ? this.limit : filtered.length
       filtered = filtered.slice(0, limit)
 
