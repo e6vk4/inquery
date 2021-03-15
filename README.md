@@ -6,6 +6,8 @@ InQuery is an SQL Query Editor. Runs on NuxtJS and Tailwind
 
 View Demo here [https://inquery-client.netlify.app/](https://inquery-client.netlify.app/)
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/130ae165-dbf7-464d-8deb-ab59309e81bf/deploy-status)](https://app.netlify.com/sites/inquery-client/deploys)
+
 ## App Performance & Best practices
 
 This was calculated using Google LightHouse extension available on Google Chrome
