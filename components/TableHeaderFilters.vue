@@ -13,7 +13,7 @@
           type="button"
           class="absolute right-0 w-4 h-4 focus:outline-none hover:bg-gray-500"
           style="right: 1rem"
-          @click="filter = false"
+          @click="closeFilter()"
         >
           <IconClose class="text-gray-700 fill-current" />
         </button>
@@ -31,10 +31,11 @@
         <!-- Operators -->
         <div class="relative inline-block mb-6 cursor-pointer">
           <select
+            v-model="whereFilter[1]"
             class="flex px-4 py-1 pr-8 leading-tight text-gray-700 bg-white border border-gray-400 rounded appearance-none cursor-pointer hover:border-gray-500 focus:outline-none"
             @change="onWhere($event.target.value, whereFilter[2])"
           >
-            <option value="=" selected>&#61;</option>
+            <option value="=">&#61;</option>
             <option value=">">&#62;</option>
             <option value="<">&#60;</option>
             <option value=">=">&#62;&#61;</option>
@@ -185,15 +186,20 @@ export default {
     },
     onWhere(x, y) {
       this.whereFilter = [this.item, x, y]
-      if (!y) return
       this.$emit('where-changed', this.whereFilter)
-      this.filter = !this.filter
+      if (y) this.filter = !this.filter
     },
     onWhereToggle(x) {
       this.filter = !this.filter
       this.$emit('where-filter-opened', this.item)
       this.whereFilter = [this.item, x, null]
       this.$emit('where-changed', this.whereFilter)
+    },
+    closeFilter() {
+      this.whereFilter = [null, '=', null]
+      this.$emit('where-changed', this.whereFilter)
+      this.$emit('where-filter-opened', '')
+      this.filter = false
     },
   },
 }
