@@ -44,11 +44,15 @@ export default {
   data() {
     return {
       currNum: this.num,
+      currValidatedNum: null,
     }
   },
   watch: {
     num(newValue) {
       this.currNum = newValue
+    },
+    currValidatedNum(newValue) {
+      if (newValue !== null) this.currNum = Number(newValue)
     },
   },
   methods: {
@@ -58,12 +62,12 @@ export default {
       this.$emit('changed', this.currNum)
     },
     validate(x) {
-      if (process.browser) {
-        setTimeout(() => {
-          if (x > this.max) this.currNum = this.max
-          if (x < this.min) this.currNum = this.min
-          this.$emit('changed', Number(this.currNum))
-        }, 1200)
+      this.currValidatedNum = null
+      if (x > this.max) this.currValidatedNum = this.max
+      if (x < this.min) this.currValidatedNum = ''
+      if (!this.currValidatedNum) {
+        this.currNum = x
+        this.$emit('changed', Number(x))
       }
     },
   },

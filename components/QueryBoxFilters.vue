@@ -72,7 +72,8 @@
           </div>
           <div v-else class="flex items-center">
             <span class="inline-block mr-3"> Use the filter</span>
-            <IconFilter class="w-3 h-3 fill-current" />
+            <IconFilter class="w-3 h-3 mr-3 fill-current" />
+            in the table
           </div>
         </div>
       </div>
@@ -93,12 +94,9 @@
           style="bottom: 1.4rem"
         >
           <span class="inline-block mr-3"> Use the arrows</span>
-          <IconArrow
-            class="w-4 h-4 text-gray-600 transform rotate-90 fill-current"
-          />desc
-          <IconArrow
-            class="w-4 h-4 text-gray-600 transform -rotate-90 fill-current"
-          />asc
+          <IconArrow class="w-4 h-4 transform rotate-90 fill-current" />desc
+          <IconArrow class="w-4 h-4 transform -rotate-90 fill-current" />asc
+          <span class="inline-block ml-3">in the table</span>
         </div>
       </div>
       <!-- LIMIT -->
@@ -111,7 +109,7 @@
         </div>
         <div>
           <NumberInput
-            :max="count ? count : getInitialCount"
+            :max="getInitialCount"
             :min="1"
             :num="limitFilter"
             @changed="onLimit($event)"
@@ -119,7 +117,7 @@
           <span class="inline-block mt-4 mr-3 text-gray-600">
             Showing {{ limitFilter }}
             {{ limitFilter > 1 ? 'items' : 'item' }} out of
-            {{ count ? count : getInitialCount }} rows</span
+            {{ getInitialCount }} rows</span
           >
         </div>
       </div>
@@ -175,7 +173,6 @@ export default {
       selectFilter: this.select,
       fromFilter: this.from,
       limitFilter: this.databaseFiltered.items.length,
-      count: 0,
     }
   },
   computed: {
@@ -184,41 +181,45 @@ export default {
     },
   },
   watch: {
-    databaseFiltered: {
+    from: {
       handler(newValue, oldVal) {
-        this.$store.commit('counter/initialCount', this.database.items.length)
+        this.mutateLimitFilter('default')
+        this.mutateInitialCount('default')
       },
       deep: true,
     },
     where: {
       handler(newValue, oldVal) {
-        if (newValue[2]) this.count = this.limitFilter
-        else {
-          this.count = this.getInitialCount
-          this.limitFilter = this.getInitialCount
-          this.$emit('limit', this.limitFilter)
+        if (newValue[2]) {
+          this.mutateLimitFilter('filtered')
+          this.mutateInitialCount('filtered')
+        } else {
+          this.mutateLimitFilter('default')
+          this.mutateInitialCount('default')
         }
-      },
-      deep: true,
-    },
-    from: {
-      handler(newValue, oldVal) {
-        this.count = 0
-        this.$store.commit(
-          'counter/initialCount',
-          this.databaseFiltered.items.length
-        )
       },
       deep: true,
     },
   },
   mounted() {
-    this.$store.commit(
-      'counter/initialCount',
-      this.databaseFiltered.items.length
-    )
+    this.mutateInitialCount('default')
   },
   methods: {
+    mutateLimitFilter(mode) {
+      if (mode === 'filtered')
+        this.limitFilter = this.databaseFiltered.items.length
+      if (mode === 'default') this.limitFilter = this.database.items.length
+      this.$emit('limit', this.limitFilter)
+    },
+    mutateInitialCount(mode) {
+      if (mode === 'filtered')
+        this.$store.commit(
+          'counter/initialCount',
+          this.databaseFiltered.items.length
+        )
+      if (mode === 'default')
+        this.$store.commit('counter/initialCount', this.database.items.length)
+    },
     onSelect(e) {
       this.selectFilter = e
       this.$emit('select', this.selectFilter)
