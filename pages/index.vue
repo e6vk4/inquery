@@ -31,21 +31,19 @@
             @limit="limit = $event"
           />
         </div>
-        <div
-          class="w-full pb-64 overflow-scroll border border-t-0 border-gray-200"
-        >
+        <div class="w-full pb-64 overflow-scroll border">
           <table class="text-sm table-auto">
             <thead>
               <tr>
                 <th
-                  class="px-4 py-2 text-xs font-medium text-left text-gray-600 whitespace-no-wrap border"
+                  class="px-4 py-2 text-xs font-medium text-left text-gray-600 whitespace-no-wrap border border-t-0 border-l-0"
                 >
                   S/N
                 </th>
                 <th
                   v-for="(item, index) in databaseFiltered.headers"
                   :key="index"
-                  class="px-4 py-2 font-medium text-left whitespace-no-wrap border"
+                  class="px-4 py-2 font-medium text-left whitespace-no-wrap border border-t-0 border-l-0"
                 >
                   <div class="flex items-center justify-between w-full">
                     <span class="inline-block mr-20">
@@ -72,14 +70,14 @@
                 class="hover:bg-gray-100"
               >
                 <td
-                  class="px-4 py-2 font-light text-gray-600 whitespace-no-wrap border"
+                  class="px-4 py-2 font-light text-gray-600 whitespace-no-wrap border border-l-0"
                 >
                   {{ index2 + 1 }}
                 </td>
                 <td
                   v-for="(item3, index3) in databaseFiltered.headers"
                   :key="index3"
-                  class="px-4 py-2 font-light text-black whitespace-no-wrap border"
+                  class="px-4 py-2 font-light text-black whitespace-no-wrap border border-l-0"
                 >
                   {{ item2[item3] }}
                 </td>
