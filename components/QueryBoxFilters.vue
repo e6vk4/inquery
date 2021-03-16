@@ -186,7 +186,7 @@ export default {
   watch: {
     databaseFiltered: {
       handler(newValue, oldVal) {
-        this.limitFilter = newValue.items.length
+        this.$store.commit('counter/initialCount', this.database.items.length)
       },
       deep: true,
     },
