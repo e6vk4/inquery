@@ -31,7 +31,7 @@
             @limit="limit = $event"
           />
         </div>
-        <div class="w-full pb-64 overflow-scroll border border-r-0">
+        <div class="w-full pb-48 overflow-scroll border">
           <table class="w-full text-sm table-auto">
             <thead>
               <tr>
@@ -43,6 +43,9 @@
                 <th
                   v-for="(item, index) in databaseFiltered.headers"
                   :key="index"
+                  :class="{
+                    'border-r-0': index === databaseFiltered.headers.length - 1,
+                  }"
                   class="px-4 py-2 font-medium text-left whitespace-no-wrap border border-t-0 border-l-0"
                 >
                   <div class="flex items-center justify-between w-full">
@@ -77,6 +80,10 @@
                 <td
                   v-for="(item3, index3) in databaseFiltered.headers"
                   :key="index3"
+                  :class="{
+                    'border-r-0':
+                      index3 === databaseFiltered.headers.length - 1,
+                  }"
                   class="px-4 py-2 font-light text-black whitespace-no-wrap border border-l-0"
                 >
                   {{ item2[item3] }}
