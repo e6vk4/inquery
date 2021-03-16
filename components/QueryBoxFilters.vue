@@ -206,14 +206,10 @@ export default {
   },
   methods: {
     mutateLimitFilter(mode) {
-      if (mode === 'filtered') {
+      if (mode === 'filtered')
         this.limitFilter = this.databaseFiltered.items.length
-        this.$emit('limit', this.limitFilter)
-      }
-      if (mode === 'default') {
-        this.limitFilter = this.database.items.length
-        this.$emit('limit', this.limitFilter)
-      }
+      if (mode === 'default') this.limitFilter = this.database.items.length
+      this.$emit('limit', this.limitFilter)
     },
     mutateInitialCount(mode) {
       if (mode === 'filtered')
