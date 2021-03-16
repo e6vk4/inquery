@@ -31,8 +31,8 @@
             @limit="limit = $event"
           />
         </div>
-        <div class="w-full pb-64 overflow-scroll border">
-          <table class="text-sm table-auto">
+        <div class="w-full pb-64 overflow-scroll border border-r-0">
+          <table class="w-full text-sm table-auto">
             <thead>
               <tr>
                 <th
