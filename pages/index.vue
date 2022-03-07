@@ -5,10 +5,10 @@
     <h1 class="mt-10 text-2xl font-bold text-center">
       InQuery <span class="text-sm font-normal">by</span>
       <a
-        href="https://github.com/loperxo"
+        href="https://github.com/e6vk4"
         class="text-sm font-normal text-blue-500 hover:underline"
       >
-        @loperxo</a
+        @e6vk4</a
       >
     </h1>
     <!-- Content -->
