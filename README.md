@@ -51,6 +51,4 @@ $ yarn generate
 
 ```
 
-Author: Ebuka Ezeh ( Github - [@loperxo](https://github.com/loperxo), Twitter - [@loperxo](https://twitter.com/loperxo), Email - [ebuka@ezeh.me](mailto:ebuka@ezeh.me) )
-
-https://ebuka.ezeh.me - 😊
+Author: Ebuka Ezeh ( Github - [@loperxo](https://github.com/e6vk4), Twitter - [@loperxo](https://twitter.com/e6vk4) )
